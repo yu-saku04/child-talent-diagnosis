@@ -1,0 +1,274 @@
+let currentQuestionIndex = 0;
+let answers = new Array(20).fill(null);
+
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  document.getElementById(screenId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgressBar() {
+  var progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = progress + '%';
+  document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+}
+
+function renderQuestion() {
+  var question = questions[currentQuestionIndex];
+  document.getElementById('question-text').textContent = question.text;
+
+  var container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  var labels = ['A', 'B', 'C', 'D'];
+  question.options.forEach(function(option, index) {
+    var btn = document.createElement('button');
+    btn.className = 'option-button';
+    if (answers[currentQuestionIndex] === option.type) {
+      btn.classList.add('selected');
+    }
+    btn.innerHTML =
+      '<span class="option-label">' + labels[index] + '</span>' +
+      '<span class="option-text">' + option.text + '</span>';
+    btn.addEventListener('click', function() {
+      selectOption(option.type, btn);
+    });
+    container.appendChild(btn);
+  });
+
+  updateProgressBar();
+
+  var nextBtn = document.getElementById('btn-next');
+  nextBtn.disabled = answers[currentQuestionIndex] === null;
+  nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? '結果を見る →' : '次へ →';
+
+  var prevBtn = document.getElementById('btn-prev');
+  prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+}
+
+function selectOption(type, selectedBtn) {
+  answers[currentQuestionIndex] = type;
+
+  document.querySelectorAll('.option-button').forEach(function(btn) {
+    btn.classList.remove('selected');
+  });
+  selectedBtn.classList.add('selected');
+
+  document.getElementById('btn-next').disabled = false;
+}
+
+function calculateResult() {
+  var scores = { logical: 0, emotional: 0, active: 0, stable: 0 };
+  answers.forEach(function(type) {
+    if (type) scores[type]++;
+  });
+
+  var maxScore = Math.max(scores.logical, scores.emotional, scores.active, scores.stable);
+  var topTypes = Object.keys(scores).filter(function(t) {
+    return scores[t] === maxScore;
+  });
+
+  if (topTypes.length === 1) return { type: topTypes[0], scores: scores };
+
+  var q20Answer = answers[19];
+  if (q20Answer && topTypes.indexOf(q20Answer) !== -1) {
+    return { type: q20Answer, scores: scores };
+  }
+
+  return { type: 'balance', scores: scores };
+}
+
+function generateResultHTML(type, scores) {
+  var data = resultData[type];
+  var total = questions.length;
+
+  var scoreEntries = [
+    { key: 'logical', score: scores.logical },
+    { key: 'emotional', score: scores.emotional },
+    { key: 'active', score: scores.active },
+    { key: 'stable', score: scores.stable }
+  ].sort(function(a, b) { return b.score - a.score; });
+
+  var scoreHTML = scoreEntries.map(function(entry) {
+    var td = resultData[entry.key];
+    var pct = Math.round((entry.score / total) * 100);
+    return (
+      '<div class="score-bar-item">' +
+        '<span class="score-bar-label">' + td.typeLabel + '</span>' +
+        '<div class="score-bar-track">' +
+          '<div class="score-bar-fill" style="width:0%;background-color:' + td.typeColor + '" data-width="' + pct + '%"></div>' +
+        '</div>' +
+        '<span class="score-bar-value">' + entry.score + '点</span>' +
+      '</div>'
+    );
+  }).join('');
+
+  var strengthsHTML = data.strengths.map(function(s) {
+    return '<li>' + s + '</li>';
+  }).join('');
+
+  var weaknessesHTML = data.weaknesses.map(function(w) {
+    return '<li>' + w + '</li>';
+  }).join('');
+
+  var ngHTML = data.ngBehaviors.map(function(n) {
+    return '<li>' + n + '</li>';
+  }).join('');
+
+  var phrasesHTML = data.goodPhrases.map(function(p) {
+    return '<div class="phrase-item" style="border-left-color:' + data.typeColor + '">"' + p + '"</div>';
+  }).join('');
+
+  return (
+    '<div class="result-type-header" style="background-color:' + data.typeColorLight + ';border-color:' + data.typeColorMid + '">' +
+      '<span class="result-type-emoji">' + data.typeEmoji + '</span>' +
+      '<span class="result-type-badge" style="background-color:' + data.typeColor + '">診断結果</span>' +
+      '<h2 class="result-type-name" style="color:' + data.typeColor + '">' + data.typeName + '</h2>' +
+      '<p class="result-type-description">' + data.description.replace(/\n/g, '<br>') + '</p>' +
+    '</div>' +
+
+    '<div class="result-section score-section">' +
+      '<h3 class="section-title"><span class="section-icon">📊</span> スコア内訳</h3>' +
+      '<div class="score-bars">' + scoreHTML + '</div>' +
+    '</div>' +
+
+    '<div class="result-section">' +
+      '<h3 class="section-title" style="color:' + data.typeColor + '"><span class="section-icon">✨</span> 強み</h3>' +
+      '<ul class="result-list">' + strengthsHTML + '</ul>' +
+    '</div>' +
+
+    '<div class="result-section">' +
+      '<h3 class="section-title"><span class="section-icon">🌱</span> 苦手傾向</h3>' +
+      '<p class="section-note">苦手というより、サポートがあると力を発揮しやすい場面です</p>' +
+      '<ul class="result-list">' + weaknessesHTML + '</ul>' +
+    '</div>' +
+
+    '<div class="result-section ng-section">' +
+      '<h3 class="section-title ng-title"><span class="section-icon">⚠️</span> 親のNG対応</h3>' +
+      '<p class="section-note">意識することで、関わり方が変わりやすい場面です</p>' +
+      '<ul class="result-list ng-list">' + ngHTML + '</ul>' +
+    '</div>' +
+
+    '<div class="result-section phrase-section" style="background-color:' + data.typeColorLight + ';border:2px solid ' + data.typeColorMid + '">' +
+      '<h3 class="section-title" style="color:' + data.typeColor + '"><span class="section-icon">💬</span> おすすめの声かけ</h3>' +
+      '<div class="phrase-list">' + phrasesHTML + '</div>' +
+    '</div>' +
+
+    '<div class="result-section daily-section" style="border-left:4px solid ' + data.typeColor + '">' +
+      '<h3 class="section-title"><span class="section-icon">📅</span> 今日からできる関わり方</h3>' +
+      '<p class="daily-advice">' + data.dailyAdvice + '</p>' +
+    '</div>' +
+
+    '<div class="guide-promo" style="border-color:' + data.typeColor + '">' +
+      '<div class="guide-promo-header" style="background-color:' + data.typeColor + '">📚 さらに詳しく知りたい方へ</div>' +
+      '<div class="guide-promo-body">' +
+        '<p>タイプ別の年齢別関わり方・声かけ例・おすすめの遊びなどをまとめた<strong>育成ガイド</strong>を用意しています。</p>' +
+        '<div class="guide-promo-price">¥980</div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function showResult() {
+  var result = calculateResult();
+  var type = result.type;
+  var scores = result.scores;
+
+  var resultContent = document.getElementById('result-content');
+  resultContent.innerHTML = generateResultHTML(type, scores);
+  resultContent.dataset.type = type;
+
+  showScreen('screen-result');
+
+  setTimeout(function() {
+    document.querySelectorAll('.score-bar-fill').forEach(function(bar) {
+      bar.style.width = bar.dataset.width;
+    });
+  }, 150);
+}
+
+function shareResult() {
+  var resultContent = document.getElementById('result-content');
+  var type = resultContent.dataset.type;
+  var data = resultData[type];
+
+  var text = '【子どもの才能タイプ診断】\n\n結果：' + data.typeName + '\n\n' + data.description + '\n\n#子育て #才能タイプ診断';
+
+  if (navigator.share) {
+    navigator.share({
+      title: '子どもの才能タイプ診断',
+      text: text
+    }).catch(function() {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('結果をコピーしました！');
+    }).catch(function() {
+      showToast('コピーできませんでした');
+    });
+  } else {
+    showToast('シェア機能はご利用の環境では使えません');
+  }
+}
+
+function showToast(message) {
+  var existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(function() { toast.classList.add('show'); }, 10);
+  setTimeout(function() {
+    toast.classList.remove('show');
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 2500);
+}
+
+function startDiagnosis() {
+  currentQuestionIndex = 0;
+  answers = new Array(20).fill(null);
+  renderQuestion();
+  showScreen('screen-question');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('btn-start').addEventListener('click', startDiagnosis);
+
+  document.getElementById('btn-next').addEventListener('click', function() {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  document.getElementById('btn-prev').addEventListener('click', function() {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      renderQuestion();
+    }
+  });
+
+  document.getElementById('btn-share').addEventListener('click', shareResult);
+
+  document.getElementById('btn-guide').addEventListener('click', function() {
+    showScreen('screen-guide');
+  });
+
+  document.getElementById('btn-retry').addEventListener('click', function() {
+    startDiagnosis();
+  });
+
+  document.getElementById('btn-back-result').addEventListener('click', function() {
+    showScreen('screen-result');
+  });
+
+  document.getElementById('btn-purchase').addEventListener('click', function() {
+    showToast('現在準備中です。しばらくお待ちください。');
+  });
+});

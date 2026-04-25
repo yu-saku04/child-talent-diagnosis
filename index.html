@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="子どもの日常の行動から、強み・伸ばし方・親の関わり方のヒントを知るための簡易診断です。約3分で診断できます。">
+  <title>子どもの才能タイプ診断</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       1. TOP SCREEN
+       ======================================================== -->
+  <div id="screen-top" class="screen active">
+    <div class="container">
+      <header class="top-header">
+        <span class="logo-icon">🌟</span>
+        <h1 class="service-title">子どもの才能タイプ診断</h1>
+        <p class="service-tagline">お子さんの個性を理解するヒントを見つけましょう</p>
+      </header>
+
+      <main class="top-main">
+        <div class="intro-card">
+          <p class="intro-text">
+            子どもの日常の行動から、<br>
+            <strong>強み・伸ばし方・親の関わり方のヒント</strong>を<br>
+            知るための簡易診断です。
+          </p>
+          <div class="time-badge">⏱ 約3分で診断できます</div>
+        </div>
+
+        <div class="features">
+          <div class="feature-item">
+            <span class="feature-icon">📋</span>
+            <span>全20問の選択式質問</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">💡</span>
+            <span>4つの才能タイプから判定</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">💬</span>
+            <span>おすすめの声かけ・関わり方を提案</span>
+          </div>
+        </div>
+
+        <button id="btn-start" class="primary-button">診断をはじめる</button>
+
+        <p class="disclaimer">
+          ※この診断は医療・心理・発達検査ではありません。<br>
+          家庭での関わり方を考えるための参考情報としてご活用ください。<br>
+          お子さんの情報は外部に送信されません。
+        </p>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       2. QUESTION SCREEN
+       ======================================================== -->
+  <div id="screen-question" class="screen">
+    <div class="container">
+      <div class="question-header">
+        <div class="question-counter">
+          <span id="current-question">1</span> / 20
+        </div>
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar" style="width: 5%"></div>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <p id="question-text" class="question-text"></p>
+        <div id="options-container" class="options-container"></div>
+      </div>
+
+      <div class="question-navigation">
+        <button id="btn-prev" class="secondary-button" style="visibility:hidden">← 戻る</button>
+        <button id="btn-next" class="primary-button" disabled>次へ →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       3. RESULT SCREEN
+       ======================================================== -->
+  <div id="screen-result" class="screen">
+    <div class="container">
+      <div id="result-content"></div>
+
+      <div class="result-actions">
+        <button id="btn-guide" class="guide-button">📚 育成ガイドを見る</button>
+        <button id="btn-share" class="share-button">📤 結果をシェアする</button>
+        <button id="btn-retry" class="secondary-button">もう一度診断する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       4. GUIDE SCREEN
+       ======================================================== -->
+  <div id="screen-guide" class="screen">
+    <div class="container">
+      <div class="guide-header">
+        <h2 class="guide-title">📚 タイプ別 育成ガイド</h2>
+        <p class="guide-subtitle">
+          診断結果をもとに、さらに詳しい育て方を知りたい方へ。
+        </p>
+      </div>
+
+      <div class="guide-card">
+        <p class="guide-description">
+          タイプ別に、年齢別の関わり方・NG対応・声かけ例・遊び方・学び方をまとめた育成ガイドを用意しています。
+        </p>
+
+        <div class="guide-contents">
+          <h3>含まれる内容</h3>
+          <ul class="guide-list">
+            <li>✅ タイプ別の詳しい特徴</li>
+            <li>✅ 0〜3歳の関わり方</li>
+            <li>✅ 4〜7歳の関わり方</li>
+            <li>✅ 親が避けたいNG対応</li>
+            <li>✅ 毎日使える声かけ例</li>
+            <li>✅ おすすめの遊び</li>
+            <li>✅ おすすめの習い事の方向性</li>
+            <li>✅ 将来伸びやすい力</li>
+          </ul>
+        </div>
+
+        <div class="guide-price">
+          <span class="price-label">特別価格</span>
+          <span class="price-amount">¥980</span>
+          <span class="price-tax">（税込）</span>
+        </div>
+
+        <button id="btn-purchase" class="purchase-button">詳しい育成ガイドを見る</button>
+      </div>
+
+      <button id="btn-back-result" class="secondary-button back-button">← 診断結果に戻る</button>
+    </div>
+  </div>
+
+  <script src="data/questions.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
