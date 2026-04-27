@@ -1,0 +1,7 @@
+# Flutter installer
+flutter_macos_*.zip
+flutter_linux_*.zip
+flutter_windows_*.zip
+
+# macOS
+.DS_Store
