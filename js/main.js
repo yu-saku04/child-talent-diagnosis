@@ -1,5 +1,5 @@
 let currentQuestionIndex = 0;
-let answers = new Array(20).fill(null);
+let answers = new Array(12).fill(null);
 
 function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(function(s) {
@@ -72,7 +72,7 @@ function calculateResult() {
 
   if (topTypes.length === 1) return { type: topTypes[0], scores: scores };
 
-  var q20Answer = answers[19];
+  var q20Answer = answers[11];
   if (q20Answer && topTypes.indexOf(q20Answer) !== -1) {
     return { type: q20Answer, scores: scores };
   }
@@ -230,7 +230,7 @@ function showToast(message) {
 
 function startDiagnosis() {
   currentQuestionIndex = 0;
-  answers = new Array(20).fill(null);
+  answers = new Array(12).fill(null);
   renderQuestion();
   showScreen('screen-question');
 }

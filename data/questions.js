@@ -21,16 +21,6 @@ const questions = [
   },
   {
     id: 3,
-    text: "親が説明しているとき、子どもはどんな様子ですか？",
-    options: [
-      { text: "理由や意味を知りたがる", type: "logical" },
-      { text: "親の表情や声色に反応する", type: "emotional" },
-      { text: "聞くより先に動き出す", type: "active" },
-      { text: "ゆっくり確認しながら聞く", type: "stable" }
-    ]
-  },
-  {
-    id: 4,
     text: "友だちと遊ぶとき、どんな傾向がありますか？",
     options: [
       { text: "ルールや順番を気にする", type: "logical" },
@@ -40,17 +30,7 @@ const questions = [
     ]
   },
   {
-    id: 5,
-    text: "褒められたとき、どんな反応をしやすいですか？",
-    options: [
-      { text: "何が良かったのか知りたがる", type: "logical" },
-      { text: "とても嬉しそうにする", type: "emotional" },
-      { text: "もっとやろうとする", type: "active" },
-      { text: "照れながらも安心する", type: "stable" }
-    ]
-  },
-  {
-    id: 6,
+    id: 4,
     text: "予定が急に変わったとき、どんな反応をしやすいですか？",
     options: [
       { text: "理由を説明されると納得しやすい", type: "logical" },
@@ -60,7 +40,7 @@ const questions = [
     ]
   },
   {
-    id: 7,
+    id: 5,
     text: "集中しているときの様子は？",
     options: [
       { text: "一つのことを深く考える", type: "logical" },
@@ -70,17 +50,7 @@ const questions = [
     ]
   },
   {
-    id: 8,
-    text: "新しい場所に行ったとき、どんな反応をしやすいですか？",
-    options: [
-      { text: "周囲を観察して理解しようとする", type: "logical" },
-      { text: "親や周囲の人の反応を気にする", type: "emotional" },
-      { text: "興味のある場所へすぐ向かう", type: "active" },
-      { text: "慣れるまで時間がかかる", type: "stable" }
-    ]
-  },
-  {
-    id: 9,
+    id: 6,
     text: "何かを選ぶとき、どんな傾向がありますか？",
     options: [
       { text: "比べて考えて選ぶ", type: "logical" },
@@ -90,17 +60,7 @@ const questions = [
     ]
   },
   {
-    id: 10,
-    text: "親に注意されたとき、どんな反応をしやすいですか？",
-    options: [
-      { text: "理由がわかると受け入れやすい", type: "logical" },
-      { text: "傷ついた表情をしやすい", type: "emotional" },
-      { text: "すぐ別の行動に移る", type: "active" },
-      { text: "しばらく引きずることがある", type: "stable" }
-    ]
-  },
-  {
-    id: 11,
+    id: 7,
     text: "遊び方の特徴は？",
     options: [
       { text: "パズルや組み立てが好き", type: "logical" },
@@ -110,7 +70,7 @@ const questions = [
     ]
   },
   {
-    id: 12,
+    id: 8,
     text: "子どもが安心しやすいのはどんなときですか？",
     options: [
       { text: "見通しや理由がわかるとき", type: "logical" },
@@ -120,17 +80,7 @@ const questions = [
     ]
   },
   {
-    id: 13,
-    text: "何かに興味を持ったとき、どうなりやすいですか？",
-    options: [
-      { text: "詳しく知りたがる", type: "logical" },
-      { text: "誰かに話したがる", type: "emotional" },
-      { text: "すぐやってみたがる", type: "active" },
-      { text: "少しずつ慣れていく", type: "stable" }
-    ]
-  },
-  {
-    id: 14,
+    id: 9,
     text: "苦手なことに向き合うとき、どんな支援が合いやすいですか？",
     options: [
       { text: "手順を説明される", type: "logical" },
@@ -140,17 +90,7 @@ const questions = [
     ]
   },
   {
-    id: 15,
-    text: "子どもが力を発揮しやすい場面は？",
-    options: [
-      { text: "考える時間がある場面", type: "logical" },
-      { text: "人との関わりがある場面", type: "emotional" },
-      { text: "体験しながら学ぶ場面", type: "active" },
-      { text: "落ち着いた環境の場面", type: "stable" }
-    ]
-  },
-  {
-    id: 16,
+    id: 10,
     text: "親が急かしたとき、どうなりやすいですか？",
     options: [
       { text: "考えがまとまりにくくなる", type: "logical" },
@@ -160,17 +100,7 @@ const questions = [
     ]
   },
   {
-    id: 17,
-    text: "初めての人と関わるときは？",
-    options: [
-      { text: "相手を観察する", type: "logical" },
-      { text: "相手の雰囲気に影響される", type: "emotional" },
-      { text: "自分から話しかける", type: "active" },
-      { text: "慣れるまで距離を取る", type: "stable" }
-    ]
-  },
-  {
-    id: 18,
+    id: 11,
     text: "好きなことに取り組むときの特徴は？",
     options: [
       { text: "細かいところまでこだわる", type: "logical" },
@@ -180,17 +110,7 @@ const questions = [
     ]
   },
   {
-    id: 19,
-    text: "親が一番困りやすい場面は？",
-    options: [
-      { text: "理屈っぽく質問が多い", type: "logical" },
-      { text: "気持ちの切り替えに時間がかかる", type: "emotional" },
-      { text: "落ち着いて待つのが苦手", type: "active" },
-      { text: "新しいことに慎重すぎる", type: "stable" }
-    ]
-  },
-  {
-    id: 20,
+    id: 12,
     text: "伸ばしてあげたい力はどれに近いですか？",
     options: [
       { text: "考える力", type: "logical" },
