@@ -1,5 +1,7 @@
 let currentQuestionIndex = 0;
 let answers = new Array(12).fill(null);
+let selectedAge = null;
+let questions = [];
 
 function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(function(s) {
@@ -13,6 +15,7 @@ function updateProgressBar() {
   var progress = ((currentQuestionIndex + 1) / questions.length) * 100;
   document.getElementById('progress-bar').style.width = progress + '%';
   document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+  document.getElementById('total-questions').textContent = questions.length;
 }
 
 function renderQuestion() {
@@ -72,7 +75,7 @@ function calculateResult() {
 
   if (topTypes.length === 1) return { type: topTypes[0], scores: scores };
 
-  var q20Answer = answers[11];
+  var q20Answer = answers[questions.length - 1];
   if (q20Answer && topTypes.indexOf(q20Answer) !== -1) {
     return { type: q20Answer, scores: scores };
   }
@@ -228,15 +231,25 @@ function showToast(message) {
   }, 2500);
 }
 
-function startDiagnosis() {
+function startDiagnosis(ageKey) {
+  selectedAge = ageKey;
+  questions = questionsByAge[ageKey];
   currentQuestionIndex = 0;
-  answers = new Array(12).fill(null);
+  answers = new Array(questions.length).fill(null);
   renderQuestion();
   showScreen('screen-question');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('btn-start').addEventListener('click', startDiagnosis);
+  document.getElementById('btn-start').addEventListener('click', function() {
+    showScreen('screen-age');
+  });
+
+  document.querySelectorAll('.age-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      startDiagnosis(card.dataset.age);
+    });
+  });
 
   document.getElementById('btn-next').addEventListener('click', function() {
     if (currentQuestionIndex < questions.length - 1) {
@@ -261,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('btn-retry').addEventListener('click', function() {
-    startDiagnosis();
+    showScreen('screen-age');
   });
 
   document.getElementById('btn-back-result').addEventListener('click', function() {

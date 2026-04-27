@@ -57,13 +57,46 @@
   </div>
 
   <!-- ========================================================
+       1.5. AGE SELECTION SCREEN
+       ======================================================== -->
+  <div id="screen-age" class="screen">
+    <div class="container">
+      <div class="age-header">
+        <span class="logo-icon">🌟</span>
+        <h2 class="age-title">お子さんの年齢を教えてください</h2>
+        <p class="age-subtitle">年齢に合わせた質問で、より正確な診断ができます</p>
+      </div>
+
+      <div class="age-cards">
+        <button class="age-card" data-age="0-2">
+          <span class="age-emoji">👶</span>
+          <span class="age-range">0〜2歳</span>
+          <span class="age-desc">言葉が出る前の<br>赤ちゃん〜よちよち期</span>
+        </button>
+        <button class="age-card" data-age="3-4">
+          <span class="age-emoji">🧒</span>
+          <span class="age-range">3〜4歳</span>
+          <span class="age-desc">言葉が育ち、<br>遊びが広がる時期</span>
+        </button>
+        <button class="age-card" data-age="5-7">
+          <span class="age-emoji">👦</span>
+          <span class="age-range">5〜7歳</span>
+          <span class="age-desc">自分の意志が育つ<br>就学前〜小学校低学年</span>
+        </button>
+      </div>
+
+      <p class="age-note">※ 当てはまる年齢帯に最も近いものを選んでください</p>
+    </div>
+  </div>
+
+  <!-- ========================================================
        2. QUESTION SCREEN
        ======================================================== -->
   <div id="screen-question" class="screen">
     <div class="container">
       <div class="question-header">
         <div class="question-counter">
-          <span id="current-question">1</span> / 12
+          <span id="current-question">1</span> / <span id="total-questions">12</span>
         </div>
         <div class="progress-bar-container">
           <div id="progress-bar" class="progress-bar" style="width: 5%"></div>
