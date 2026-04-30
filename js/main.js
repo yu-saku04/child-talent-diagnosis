@@ -43,23 +43,27 @@ function renderQuestion() {
 
   updateProgressBar();
 
-  var nextBtn = document.getElementById('btn-next');
-  nextBtn.disabled = answers[currentQuestionIndex] === null;
-  nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? '結果を見る →' : '次へ →';
-
   var prevBtn = document.getElementById('btn-prev');
   prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
 }
 
 function selectOption(type, selectedBtn) {
-  answers[currentQuestionIndex] = type;
-
+  // Disable all options immediately to prevent double-tap
   document.querySelectorAll('.option-button').forEach(function(btn) {
     btn.classList.remove('selected');
+    btn.disabled = true;
   });
   selectedBtn.classList.add('selected');
+  answers[currentQuestionIndex] = type;
 
-  document.getElementById('btn-next').disabled = false;
+  setTimeout(function() {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 320);
 }
 
 function calculateResult() {
@@ -249,15 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
     card.addEventListener('click', function() {
       startDiagnosis(card.dataset.age);
     });
-  });
-
-  document.getElementById('btn-next').addEventListener('click', function() {
-    if (currentQuestionIndex < questions.length - 1) {
-      currentQuestionIndex++;
-      renderQuestion();
-    } else {
-      showResult();
-    }
   });
 
   document.getElementById('btn-prev').addEventListener('click', function() {
