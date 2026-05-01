@@ -128,6 +128,10 @@ function generateResultHTML(type, scores) {
     return '<div class="phrase-item" style="border-left-color:' + data.typeColor + '">"' + p + '"</div>';
   }).join('');
 
+  function listItems(arr) {
+    return arr.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+  }
+
   return (
     '<div class="result-type-header" style="background-color:' + data.typeColorLight + ';border-color:' + data.typeColorMid + '">' +
       '<span class="result-type-emoji">' + data.typeEmoji + '</span>' +
