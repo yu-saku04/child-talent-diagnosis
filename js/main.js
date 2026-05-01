@@ -225,44 +225,6 @@ function showResult() {
   }, 150);
 }
 
-function shareResult() {
-  var resultContent = document.getElementById('result-content');
-  var type = resultContent.dataset.type;
-  var data = resultData[type];
-
-  var text = '【子どもの才能タイプ診断】\n\n結果：' + data.typeName + '\n\n' + data.description + '\n\n#子育て #才能タイプ診断';
-
-  if (navigator.share) {
-    navigator.share({
-      title: '子どもの才能タイプ診断',
-      text: text
-    }).catch(function() {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(function() {
-      showToast('結果をコピーしました！');
-    }).catch(function() {
-      showToast('コピーできませんでした');
-    });
-  } else {
-    showToast('シェア機能はご利用の環境では使えません');
-  }
-}
-
-function showToast(message) {
-  var existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-
-  var toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-
-  setTimeout(function() { toast.classList.add('show'); }, 10);
-  setTimeout(function() {
-    toast.classList.remove('show');
-    setTimeout(function() { toast.remove(); }, 300);
-  }, 2500);
-}
 
 function resetDiagnosisState() {
   if (selectTimeout) { clearTimeout(selectTimeout); selectTimeout = null; }
@@ -303,8 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
     selectedAge = null;
     showScreen('screen-age');
   });
-
-  document.getElementById('btn-share').addEventListener('click', shareResult);
 
   document.getElementById('btn-retry').addEventListener('click', function() {
     resetDiagnosisState();
