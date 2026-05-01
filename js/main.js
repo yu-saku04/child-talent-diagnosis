@@ -2,6 +2,7 @@ let currentQuestionIndex = 0;
 let answers = new Array(12).fill(null);
 let selectedAge = null;
 let questions = [];
+let selectTimeout = null;
 
 function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(function(s) {
@@ -56,7 +57,8 @@ function selectOption(type, selectedBtn) {
   selectedBtn.classList.add('selected');
   answers[currentQuestionIndex] = type;
 
-  setTimeout(function() {
+  selectTimeout = setTimeout(function() {
+    selectTimeout = null;
     if (currentQuestionIndex < questions.length - 1) {
       currentQuestionIndex++;
       renderQuestion();
@@ -262,10 +264,17 @@ function showToast(message) {
   }, 2500);
 }
 
+function resetDiagnosisState() {
+  if (selectTimeout) { clearTimeout(selectTimeout); selectTimeout = null; }
+  currentQuestionIndex = 0;
+  answers = new Array(12).fill(null);
+  document.getElementById('options-container').innerHTML = '';
+}
+
 function startDiagnosis(ageKey) {
+  resetDiagnosisState();
   selectedAge = ageKey;
   questions = questionsByAge[ageKey];
-  currentQuestionIndex = 0;
   answers = new Array(questions.length).fill(null);
   renderQuestion();
   showScreen('screen-question');
@@ -290,8 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('btn-age-select').addEventListener('click', function() {
-    currentQuestionIndex = 0;
-    answers = new Array(12).fill(null);
+    resetDiagnosisState();
     selectedAge = null;
     showScreen('screen-age');
   });
@@ -299,6 +307,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btn-share').addEventListener('click', shareResult);
 
   document.getElementById('btn-retry').addEventListener('click', function() {
+    resetDiagnosisState();
+    selectedAge = null;
     showScreen('screen-age');
   });
 });
