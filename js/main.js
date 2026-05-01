@@ -289,6 +289,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  document.getElementById('btn-age-select').addEventListener('click', function() {
+    currentQuestionIndex = 0;
+    answers = new Array(12).fill(null);
+    selectedAge = null;
+    showScreen('screen-age');
+  });
+
   document.getElementById('btn-share').addEventListener('click', shareResult);
 
   document.getElementById('btn-retry').addEventListener('click', function() {

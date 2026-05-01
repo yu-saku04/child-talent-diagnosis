@@ -349,6 +349,26 @@ body {
   font-size: 15px;
 }
 
+.btn-age-select {
+  margin-left: auto;
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 10px 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.btn-age-select:hover {
+  color: var(--color-text);
+}
+
 /* ============================================================
    RESULT SCREEN
    ============================================================ */
