@@ -168,12 +168,57 @@ function generateResultHTML(type, scores) {
       '<p class="daily-advice">' + data.dailyAdvice + '</p>' +
     '</div>' +
 
-    '<div class="guide-promo" style="border-color:' + data.typeColor + '">' +
-      '<div class="guide-promo-header" style="background-color:' + data.typeColor + '">📚 さらに詳しく知りたい方へ</div>' +
-      '<div class="guide-promo-body">' +
-        '<p>タイプ別の年齢別関わり方・声かけ例・おすすめの遊びなどをまとめた<strong>育成ガイド</strong>を用意しています。</p>' +
-        '<div class="guide-promo-price">¥980</div>' +
+    ''
+  );
+}
+
+function generateGuideHTML(type) {
+  var data = resultData[type];
+  var g = data.guide;
+  var color = data.typeColor;
+  var colorLight = data.typeColorLight;
+  var colorMid = data.typeColorMid;
+
+  function listItems(arr) {
+    return arr.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+  }
+
+  return (
+    '<div class="guide-type-header" style="background:' + colorLight + ';border:2px solid ' + colorMid + '">' +
+      '<span class="guide-type-emoji">' + data.typeEmoji + '</span>' +
+      '<span class="guide-type-name" style="color:' + color + '">' + data.typeName + '</span>' +
+    '</div>' +
+
+    '<div class="guide-block">' +
+      '<h3 class="guide-block-title" style="color:' + color + '">💡 この子の関わり方ポイント</h3>' +
+      '<ul class="guide-list">' + listItems(g.parentingTips) + '</ul>' +
+    '</div>' +
+
+    '<div class="guide-block">' +
+      '<h3 class="guide-block-title">🌱 年齢別の関わり方</h3>' +
+      '<div class="guide-age-item">' +
+        '<span class="guide-age-label">0〜3歳</span>' +
+        '<p class="guide-age-text">' + g.ageYoung + '</p>' +
       '</div>' +
+      '<div class="guide-age-item">' +
+        '<span class="guide-age-label">4〜7歳</span>' +
+        '<p class="guide-age-text">' + g.ageOlder + '</p>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="guide-block">' +
+      '<h3 class="guide-block-title">🎮 おすすめの遊び・活動</h3>' +
+      '<ul class="guide-list">' + listItems(g.activities) + '</ul>' +
+    '</div>' +
+
+    '<div class="guide-block">' +
+      '<h3 class="guide-block-title">📚 習い事の方向性</h3>' +
+      '<p class="guide-lesson">' + g.lessons + '</p>' +
+    '</div>' +
+
+    '<div class="guide-block guide-block-last">' +
+      '<h3 class="guide-block-title">🚀 将来伸びやすい力</h3>' +
+      '<ul class="guide-list">' + listItems(g.futureStrengths) + '</ul>' +
     '</div>'
   );
 }
@@ -265,6 +310,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btn-share').addEventListener('click', shareResult);
 
   document.getElementById('btn-guide').addEventListener('click', function() {
+    var type = document.getElementById('result-content').dataset.type;
+    document.getElementById('guide-content').innerHTML = generateGuideHTML(type);
     showScreen('screen-guide');
   });
 
@@ -274,9 +321,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById('btn-back-result').addEventListener('click', function() {
     showScreen('screen-result');
-  });
-
-  document.getElementById('btn-purchase').addEventListener('click', function() {
-    showToast('現在準備中です。しばらくお待ちください。');
   });
 });

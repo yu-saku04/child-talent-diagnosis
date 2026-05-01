@@ -540,44 +540,38 @@ body {
   color: var(--color-text);
 }
 
-/* Guide promo */
-.guide-promo {
-  border: 2px solid;
+/* Android banner */
+.android-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border-radius: var(--radius-md);
-  overflow: hidden;
-  margin-bottom: 26px;
+  padding: 16px 20px;
+  margin-top: 20px;
   box-shadow: var(--shadow-sm);
 }
 
-.guide-promo-header {
-  padding: 13px 20px;
-  color: #fff;
+.android-banner-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.android-banner-body {
+  flex: 1;
+}
+
+.android-banner-title {
   font-size: 15px;
   font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3px;
 }
 
-.guide-promo-body {
-  padding: 20px;
-  background: var(--color-card);
-}
-
-.guide-promo-body p {
-  font-size: 14px;
-  line-height: 1.8;
-  color: var(--color-text);
-  margin-bottom: 16px;
-}
-
-.guide-promo-body strong {
-  color: var(--color-primary);
-}
-
-.guide-promo-price {
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--color-text);
-  text-align: center;
-  letter-spacing: -1px;
+.android-banner-sub {
+  font-size: 12px;
+  color: #94a3b8;
 }
 
 /* Result action buttons */
@@ -652,92 +646,113 @@ body {
 .guide-card {
   background: var(--color-card);
   border-radius: var(--radius-lg);
-  padding: 28px 22px;
+  padding: 24px 20px;
   margin-bottom: 16px;
   box-shadow: var(--shadow-md);
 }
 
-.guide-description {
-  font-size: 15px;
-  line-height: 1.85;
-  color: var(--color-text);
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--color-border);
+/* Guide type header */
+.guide-type-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 4px;
 }
 
-.guide-contents h3 {
-  font-size: 16px;
+.guide-type-emoji {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.guide-type-name {
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+/* Guide content blocks */
+.guide-block {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.guide-block-last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.guide-block-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 12px;
 }
 
 .guide-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
+  gap: 8px;
 }
 
 .guide-list li {
-  font-size: 15px;
-  padding: 11px 14px;
+  font-size: 14px;
+  padding: 10px 14px;
   background: #F9FAFB;
   border-radius: var(--radius-sm);
-  line-height: 1.5;
-}
-
-.guide-price {
-  text-align: center;
-  margin-bottom: 22px;
-  padding: 22px;
-  background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
-  border-radius: var(--radius-md);
-}
-
-.price-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #8B5CF6;
-  margin-bottom: 6px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.price-amount {
-  font-size: 46px;
-  font-weight: 900;
+  line-height: 1.55;
   color: var(--color-text);
-  letter-spacing: -2px;
 }
 
-.price-tax {
-  font-size: 13px;
-  color: var(--color-text-secondary);
-  margin-left: 4px;
-}
-
-.purchase-button {
-  display: block;
-  width: 100%;
-  padding: 18px 24px;
-  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-md);
-  font-size: 18px;
+.guide-list li::before {
+  content: "✓ ";
   font-weight: 700;
-  font-family: var(--font);
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(139, 92, 246, 0.4);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  color: var(--color-primary);
 }
 
-.purchase-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 22px rgba(139, 92, 246, 0.52);
+/* Age-specific advice */
+.guide-age-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.guide-age-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.guide-age-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-text-secondary);
+  padding: 3px 9px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.guide-age-text {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.75;
+}
+
+/* Lesson text */
+.guide-lesson {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.75;
+  padding: 10px 14px;
+  background: #F9FAFB;
+  border-radius: var(--radius-sm);
 }
 
 .back-button {
