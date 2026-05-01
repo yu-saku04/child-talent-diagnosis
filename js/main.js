@@ -168,57 +168,35 @@ function generateResultHTML(type, scores) {
       '<p class="daily-advice">' + data.dailyAdvice + '</p>' +
     '</div>' +
 
-    ''
-  );
-}
-
-function generateGuideHTML(type) {
-  var data = resultData[type];
-  var g = data.guide;
-  var color = data.typeColor;
-  var colorLight = data.typeColorLight;
-  var colorMid = data.typeColorMid;
-
-  function listItems(arr) {
-    return arr.map(function(item) { return '<li>' + item + '</li>'; }).join('');
-  }
-
-  return (
-    '<div class="guide-type-header" style="background:' + colorLight + ';border:2px solid ' + colorMid + '">' +
-      '<span class="guide-type-emoji">' + data.typeEmoji + '</span>' +
-      '<span class="guide-type-name" style="color:' + color + '">' + data.typeName + '</span>' +
-    '</div>' +
-
-    '<div class="guide-block">' +
-      '<h3 class="guide-block-title" style="color:' + color + '">💡 この子の関わり方ポイント</h3>' +
-      '<ul class="guide-list">' + listItems(g.parentingTips) + '</ul>' +
-    '</div>' +
-
-    '<div class="guide-block">' +
-      '<h3 class="guide-block-title">🌱 年齢別の関わり方</h3>' +
-      '<div class="guide-age-item">' +
-        '<span class="guide-age-label">0〜3歳</span>' +
-        '<p class="guide-age-text">' + g.ageYoung + '</p>' +
+    '<div class="guide-inline-section">' +
+      '<h3 class="guide-inline-heading" style="color:' + data.typeColor + '">📚 育成ガイド</h3>' +
+      '<div class="guide-block">' +
+        '<h3 class="guide-block-title" style="color:' + data.typeColor + '">💡 この子の関わり方ポイント</h3>' +
+        '<ul class="guide-list">' + listItems(data.guide.parentingTips) + '</ul>' +
       '</div>' +
-      '<div class="guide-age-item">' +
-        '<span class="guide-age-label">4〜7歳</span>' +
-        '<p class="guide-age-text">' + g.ageOlder + '</p>' +
+      '<div class="guide-block">' +
+        '<h3 class="guide-block-title">🌱 年齢別の関わり方</h3>' +
+        '<div class="guide-age-item">' +
+          '<span class="guide-age-label">0〜3歳</span>' +
+          '<p class="guide-age-text">' + data.guide.ageYoung + '</p>' +
+        '</div>' +
+        '<div class="guide-age-item">' +
+          '<span class="guide-age-label">4〜7歳</span>' +
+          '<p class="guide-age-text">' + data.guide.ageOlder + '</p>' +
+        '</div>' +
       '</div>' +
-    '</div>' +
-
-    '<div class="guide-block">' +
-      '<h3 class="guide-block-title">🎮 おすすめの遊び・活動</h3>' +
-      '<ul class="guide-list">' + listItems(g.activities) + '</ul>' +
-    '</div>' +
-
-    '<div class="guide-block">' +
-      '<h3 class="guide-block-title">📚 習い事の方向性</h3>' +
-      '<p class="guide-lesson">' + g.lessons + '</p>' +
-    '</div>' +
-
-    '<div class="guide-block guide-block-last">' +
-      '<h3 class="guide-block-title">🚀 将来伸びやすい力</h3>' +
-      '<ul class="guide-list">' + listItems(g.futureStrengths) + '</ul>' +
+      '<div class="guide-block">' +
+        '<h3 class="guide-block-title">🎮 おすすめの遊び・活動</h3>' +
+        '<ul class="guide-list">' + listItems(data.guide.activities) + '</ul>' +
+      '</div>' +
+      '<div class="guide-block">' +
+        '<h3 class="guide-block-title">📚 習い事の方向性</h3>' +
+        '<p class="guide-lesson">' + data.guide.lessons + '</p>' +
+      '</div>' +
+      '<div class="guide-block guide-block-last">' +
+        '<h3 class="guide-block-title">🚀 将来伸びやすい力</h3>' +
+        '<ul class="guide-list">' + listItems(data.guide.futureStrengths) + '</ul>' +
+      '</div>' +
     '</div>'
   );
 }
@@ -294,9 +272,9 @@ document.addEventListener('DOMContentLoaded', function() {
     showScreen('screen-age');
   });
 
-  document.querySelectorAll('.age-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      startDiagnosis(card.dataset.age);
+  document.querySelectorAll('.age-number-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      startDiagnosis(btn.dataset.age);
     });
   });
 
@@ -309,17 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById('btn-share').addEventListener('click', shareResult);
 
-  document.getElementById('btn-guide').addEventListener('click', function() {
-    var type = document.getElementById('result-content').dataset.type;
-    document.getElementById('guide-content').innerHTML = generateGuideHTML(type);
-    showScreen('screen-guide');
-  });
-
   document.getElementById('btn-retry').addEventListener('click', function() {
     showScreen('screen-age');
-  });
-
-  document.getElementById('btn-back-result').addEventListener('click', function() {
-    showScreen('screen-result');
   });
 });

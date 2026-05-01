@@ -67,25 +67,18 @@
         <p class="age-subtitle">年齢に合わせた質問で、より正確な診断ができます</p>
       </div>
 
-      <div class="age-cards">
-        <button class="age-card" data-age="0-2">
-          <span class="age-emoji">👶</span>
-          <span class="age-range">0〜2歳</span>
-          <span class="age-desc">言葉が出る前の<br>赤ちゃん〜よちよち期</span>
-        </button>
-        <button class="age-card" data-age="3-4">
-          <span class="age-emoji">🧒</span>
-          <span class="age-range">3〜4歳</span>
-          <span class="age-desc">言葉が育ち、<br>遊びが広がる時期</span>
-        </button>
-        <button class="age-card" data-age="5-7">
-          <span class="age-emoji">👦</span>
-          <span class="age-range">5〜7歳</span>
-          <span class="age-desc">自分の意志が育つ<br>就学前〜小学校低学年</span>
-        </button>
+      <div class="age-number-grid">
+        <button class="age-number-btn" data-age="0"><span class="age-num">0</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="1"><span class="age-num">1</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="2"><span class="age-num">2</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="3"><span class="age-num">3</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="4"><span class="age-num">4</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="5"><span class="age-num">5</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="6"><span class="age-num">6</span><span class="age-unit">歳</span></button>
+        <button class="age-number-btn" data-age="7"><span class="age-num">7</span><span class="age-unit">歳</span></button>
       </div>
 
-      <p class="age-note">※ 当てはまる年齢帯に最も近いものを選んでください</p>
+      <p class="age-note">※ お子さんの年齢（誕生日を迎えた歳）を選んでください</p>
     </div>
   </div>
 
@@ -122,7 +115,6 @@
       <div id="result-content"></div>
 
       <div class="result-actions">
-        <button id="btn-guide" class="guide-button">📚 育成ガイドを見る</button>
         <button id="btn-share" class="share-button">📤 結果をシェアする</button>
         <button id="btn-retry" class="secondary-button">もう一度診断する</button>
       </div>
@@ -134,28 +126,6 @@
           <p class="android-banner-sub">より便利に使えるアプリを準備中です</p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- ========================================================
-       4. GUIDE SCREEN
-       ======================================================== -->
-  <div id="screen-guide" class="screen">
-    <div class="container">
-      <div class="guide-header">
-        <h2 class="guide-title">📚 育成ガイド</h2>
-        <p class="guide-subtitle">
-          診断結果をもとにした、お子さんへの関わり方ガイドです。
-        </p>
-      </div>
-
-      <div class="guide-card">
-        <div id="guide-content">
-          <!-- JS で生成 -->
-        </div>
-      </div>
-
-      <button id="btn-back-result" class="secondary-button back-button">← 診断結果に戻る</button>
     </div>
   </div>
 

@@ -759,6 +759,21 @@ body {
   margin-top: 8px;
 }
 
+/* Guide section inline in result screen */
+.guide-inline-section {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.guide-inline-heading {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
 /* ============================================================
    TOAST
    ============================================================ */
@@ -807,57 +822,50 @@ body {
   line-height: 1.75;
 }
 
-.age-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.age-number-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
   margin-bottom: 20px;
 }
 
-.age-card {
+.age-number-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 26px 20px;
+  justify-content: center;
+  padding: 20px 8px;
   background: var(--color-card);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   cursor: pointer;
   font-family: var(--font);
-  text-align: center;
+  gap: 3px;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-.age-card:hover {
+.age-number-btn:hover {
   border-color: var(--color-primary);
   box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2);
   transform: translateY(-2px);
 }
 
-.age-card:active {
+.age-number-btn:active {
   transform: translateY(0);
 }
 
-.age-emoji {
-  font-size: 44px;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.age-range {
-  font-size: 20px;
+.age-num {
+  font-size: 34px;
   font-weight: 800;
   color: var(--color-text);
-  letter-spacing: -0.3px;
+  line-height: 1;
 }
 
-.age-desc {
+.age-unit {
   font-size: 13px;
+  font-weight: 600;
   color: var(--color-text-secondary);
-  line-height: 1.65;
 }
 
 .age-note {
